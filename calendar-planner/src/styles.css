@@ -1,0 +1,63 @@
+.Column {
+    float: left;
+    height: 600px;
+    width: 100px;
+}
+
+.Center {
+    text-align: center;
+}
+
+.Calendar{
+    display: inline-block;
+}
+
+.incButton{
+    position: absolute;
+
+    right: 650px;
+}
+.decButton{
+    position: absolute;
+    left: 650px;
+}
+
+.Text{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular';
+}
+
+.MainText{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular';
+    font-size: 150%;
+    letter-spacing: 2px;
+}
+
+.Red{
+    background-color: red;
+}
+
+.Gray{
+    background-color: #d6d6d6;
+}
+
+.LightGray{
+    background-color: #ededed;
+}
+
+.header{
+    background-image: linear-gradient(#7aa672, #b6deaf);
+    position: sticky;
+    width: 100%;
+    height: 50px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+
+}
+.body{
+}
+
+.box{
+    border: 1px solid white;
+    border-radius: 3px;
+}
