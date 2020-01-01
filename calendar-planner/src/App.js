@@ -47,16 +47,6 @@ class App extends Component {
                 
                 <div id="board_wrapper" className="Center">{this.createBoard()}</div>
 
-                {this.placeExistingCards()}
-                <div id = "Holder" 
-                        class="outer"
-                        className="box LightGray Text"
-                        onDrop={this.drop}
-                        onDragOver={this.allowDrop}                    
-                    >
-                        Holder
-                </div>
-
                 <p>TEST</p>
                 <p>TEST</p>
             </body>
@@ -74,8 +64,7 @@ class App extends Component {
 
     incMonth = () => {
         if(this.state.month == 12){
-            this.setState({month : 1, week : 1});
-            this.incYear();
+            this.setState({year : this.state.year + 1, month : 1, week : 1, calGrid : this.getCalendarDates(this.state.year + 1, 1)});
         }else{
             this.setState({month : this.state.month + 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month + 1)});   
         }
@@ -83,8 +72,7 @@ class App extends Component {
 
     decMonth = () => {
         if(this.state.month == 1){
-            this.setState({month : 12, week : 1});
-            this.decYear();
+            this.setState({year : this.state.year - 1, month : 12, week : 1, calGrid : this.getCalendarDates(this.state.year - 1, 12)});
         }else{
             this.setState({month : this.state.month - 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month - 1)});   
         }
@@ -103,9 +91,11 @@ class App extends Component {
     }
 
     createBoard = () => {
+        console.log(this.state.year + "_" + this.state.month + "_" + this.state.week);
         const cols = [];
+        const cards = this.placeExistingCards();
         for(var i = 0; i < 7; i++){
-            cols.push(this.createColumn(i));
+            cols.push(this.createColumn(i, cards));
         }
         return(
             <div id="board" className="Calendar">
@@ -114,10 +104,9 @@ class App extends Component {
         );
     }
 
-    createColumn = (day) => {
+    createColumn = (day, cards) => {
         const hrs = [];
         const currDay = this.state.dayNames[day];
-
         for(var i = 0; i < 24; i++){
             hrs.push(<div id = {this.state.year + "_" + this.state.month + "_" + this.state.calGrid[this.state.week - 1][day] + "_" + i} 
                         class="outer"
@@ -126,6 +115,7 @@ class App extends Component {
                         onDragOver={this.allowDrop}                    
                     >
                         {i + ":00"}
+                        {this.placeValidCards(cards, this.state.calGrid[this.state.week - 1][day], i)}
                     </div>);
         }
 
@@ -193,35 +183,34 @@ class App extends Component {
         ev.preventDefault();
     }
 
-    splitText = (text) => {
-        return text.split("_");
+    placeExistingCards = () => {
+        var allCards = [];
+        postData.map((postDetail, index)=> {
+            var h = 20;
+            var br = 3;
+            //If card belongs on the current board
+            if(postDetail.year == this.state.year && postDetail.month == this.state.month && postDetail.week == this.state.week){
+                var height = {height: h*postDetail.length + br*(postDetail.length - 2)}
+                var card_name = "card" + "_" + postDetail.length + "_" + postDetail.year + "_" + postDetail.month + "_" + postDetail.day + "_" + postDetail.start_time;
+                var card = this.makeCard(card_name, height);
+
+                allCards.push(card);
+            }
+        })
+        return allCards;
     }
 
-    placeExistingCards = () => {
-        return(
-            <div id="cardHolder">{
-                postData.map((postDetail, index)=> {
-                    var h = 20;
-                    var br = 3;
-                    //If card belongs on the current board
-                    if(postDetail.year == this.state.year && postDetail.month == this.state.month && postDetail.week == this.state.week){
-                        var height = {height: h*postDetail.length + br*(postDetail.length - 2)}
-                        var card_name = "card" + "_" + postDetail.length + "_" + postDetail.year + "_" + postDetail.month + "_" + postDetail.day + "_" + postDetail.start_time;
-                        var card = this.makeCard(card_name, height);
-                        return card;
-                    }
-                })
-            }</div>
-        );
-        /*
-        return(
-        <div>
-        {postData.map((postDetail, index)=> {
-            return <h1>{postDetail.day}</h1>
-        })}
-        </div>
-        );
-        */
+    placeValidCards = (cards, d, time) => {
+        console.log(d + "_" + time);
+        for(var i = 0; i < cards.length; i++){
+            var cardString = cards[i].props.id.split("_");
+            //console.log(cardString[4] + "_" + d + "_" + cardString[5] + "_" + time);
+            if(cardString[4] == d && cardString[5] == time){
+                console.log("hello");
+                return cards[i];
+            }
+        }
+        return;
     }
 }
 
