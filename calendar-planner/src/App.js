@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
+import postData from './data/cards.json';
+import PostCards from './PostCards.js';
 import logo from './logo.svg';
 import ReactDOM from 'react-dom'; 
 class App extends Component {
@@ -44,6 +46,19 @@ class App extends Component {
                 </div>
                 
                 <div id="board_wrapper" className="Center">{this.createBoard()}</div>
+
+                {this.placeExistingCards()}
+                <div id = "Holder" 
+                        class="outer"
+                        className="box LightGray Text"
+                        onDrop={this.drop}
+                        onDragOver={this.allowDrop}                    
+                    >
+                        Holder
+                </div>
+
+                <p>TEST</p>
+                <p>TEST</p>
             </body>
         </div>
         );
@@ -104,7 +119,14 @@ class App extends Component {
         const currDay = this.state.dayNames[day];
 
         for(var i = 0; i < 24; i++){
-            hrs.push(<div id = {this.state.year + "_" + this.state.month + "_" + this.state.calGrid[this.state.week - 1][day] + "_" + i} className="box LightGray Text">{i + ":00"}</div>);
+            hrs.push(<div id = {this.state.year + "_" + this.state.month + "_" + this.state.calGrid[this.state.week - 1][day] + "_" + i} 
+                        class="outer"
+                        className="box LightGray Text"
+                        onDrop={this.drop}
+                        onDragOver={this.allowDrop}                    
+                    >
+                        {i + ":00"}
+                    </div>);
         }
 
         return(
@@ -147,6 +169,59 @@ class App extends Component {
             }
         }
         return cal;
+    }
+
+    makeCard = (idName, height) =>{
+        return(
+            <div id={idName} class="inner" className="Red Text card" style={height} draggable="true" onDragStart={this.drag}></div>
+        )
+    }
+
+    drag = (ev) => {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    drop = (ev) => {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var card = document.getElementById(data);
+        ev.target.appendChild(card);
+        card.id = "card" + "_" + "length" + "_" + ev.target.id;
+    }
+
+    allowDrop = (ev) => {
+        ev.preventDefault();
+    }
+
+    splitText = (text) => {
+        return text.split("_");
+    }
+
+    placeExistingCards = () => {
+        return(
+            <div id="cardHolder">{
+                postData.map((postDetail, index)=> {
+                    var h = 20;
+                    var br = 3;
+                    //If card belongs on the current board
+                    if(postDetail.year == this.state.year && postDetail.month == this.state.month && postDetail.week == this.state.week){
+                        var height = {height: h*postDetail.length + br*(postDetail.length - 2)}
+                        var card_name = "card" + "_" + postDetail.length + "_" + postDetail.year + "_" + postDetail.month + "_" + postDetail.day + "_" + postDetail.start_time;
+                        var card = this.makeCard(card_name, height);
+                        return card;
+                    }
+                })
+            }</div>
+        );
+        /*
+        return(
+        <div>
+        {postData.map((postDetail, index)=> {
+            return <h1>{postDetail.day}</h1>
+        })}
+        </div>
+        );
+        */
     }
 }
 
