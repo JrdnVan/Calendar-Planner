@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/calendar-planner/static/css/main.e18fd3c8.chunk.css",
+    "main.js": "/calendar-planner/static/js/main.4ce48f03.chunk.js",
+    "main.js.map": "/calendar-planner/static/js/main.4ce48f03.chunk.js.map",
+    "runtime-main.js": "/calendar-planner/static/js/runtime-main.c6bc734f.js",
+    "runtime-main.js.map": "/calendar-planner/static/js/runtime-main.c6bc734f.js.map",
+    "static/js/2.05301dda.chunk.js": "/calendar-planner/static/js/2.05301dda.chunk.js",
+    "static/js/2.05301dda.chunk.js.map": "/calendar-planner/static/js/2.05301dda.chunk.js.map",
+    "index.html": "/calendar-planner/index.html",
+    "precache-manifest.493bad06bc7867eb93bcaf15479e888d.js": "/calendar-planner/precache-manifest.493bad06bc7867eb93bcaf15479e888d.js",
+    "service-worker.js": "/calendar-planner/service-worker.js",
+    "static/css/main.e18fd3c8.chunk.css.map": "/calendar-planner/static/css/main.e18fd3c8.chunk.css.map",
+    "static/js/2.05301dda.chunk.js.LICENSE": "/calendar-planner/static/js/2.05301dda.chunk.js.LICENSE",
+    "static/media/bin-icon.png": "/calendar-planner/static/media/bin-icon.6fa01a90.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c6bc734f.js",
+    "static/js/2.05301dda.chunk.js",
+    "static/css/main.e18fd3c8.chunk.css",
+    "static/js/main.4ce48f03.chunk.js"
+  ]
+}
