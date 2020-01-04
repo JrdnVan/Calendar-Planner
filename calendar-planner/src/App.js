@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './styles.css';
 import AddCard from './AddCard.js';
 //import postData from './data/cards.json';
+import { HashRouter, Route, Link } from "react-router-dom";
 import Card from './Card.js';
 import PostCards from './PostCards.js';
 import BinIcon from './bin-icon.png';
@@ -26,50 +27,52 @@ class App extends Component {
     }
     render() {
         return(
-        <div className="App" id="app">
-            <header className="header MainText">
-                HOME
-            </header>
+            <HashRouter basename='/'>
+                <div className="App" id="app">
+                    <header className="header MainText">
+                        HOME
+                    </header>
 
-            <body className="body">
-                <div className="Center MainText">
-                    <button onClick={this.decYear} id="decYearButton" className="decButton">&lt;</button>                
-                    {this.state.year}
-                    <button onClick={this.incYear} id="incYearButton" className="incButton">&gt;</button>
-                </div>
+                    <body className="body">
+                        <div className="Center MainText">
+                            <button onClick={this.decYear} id="decYearButton" className="decButton">&lt;</button>                
+                            {this.state.year}
+                            <button onClick={this.incYear} id="incYearButton" className="incButton">&gt;</button>
+                        </div>
 
-                <div className="Center MainText">
-                    <button onClick={this.decMonth} id="decMonthButton" className="decButton">&lt;</button>
-                    {this.state.monthNames[this.state.month - 1]}
-                    <button onClick={this.incMonth} id="incMonthButton" className="incButton">&gt;</button>
-                </div>
+                        <div className="Center MainText">
+                            <button onClick={this.decMonth} id="decMonthButton" className="decButton">&lt;</button>
+                            {this.state.monthNames[this.state.month - 1]}
+                            <button onClick={this.incMonth} id="incMonthButton" className="incButton">&gt;</button>
+                        </div>
 
-                <div className="Center MainText">
-                    <button onClick={this.decWeek} id="decWeekButton" className="decButton">&lt;</button>
-                    {"Week " + this.state.week}
-                    <button onClick={this.incWeek} id="incWeekButton" className="incButton">&gt;</button>
-                </div>
-                
-                <div id="board_wrapper" className="Center">
-                    {this.createBoard()}
-                </div>
+                        <div className="Center MainText">
+                            <button onClick={this.decWeek} id="decWeekButton" className="decButton">&lt;</button>
+                            {"Week " + this.state.week}
+                            <button onClick={this.incWeek} id="incWeekButton" className="incButton">&gt;</button>
+                        </div>
+                        
+                        <div id="board_wrapper" className="Center">
+                            {this.createBoard()}
+                        </div>
 
-                <div id="addCard" className="addCard">
-                    <AddCard grid={this.state.calGrid} week={this.state.week}/>
-                    <button onClick = {this.addCard}>
-                        Add a new card!
-                    </button>
-                </div>
-                <img 
-                    src="bin-icon.png"
-                    className = "bin"
-                    onDrop={this.dropRemove}
-                    onDragOver={this.allowDrop}            
-                >
+                        <div id="addCard" className="addCard">
+                            <AddCard grid={this.state.calGrid} week={this.state.week}/>
+                            <button onClick = {this.addCard}>
+                                Add a new card!
+                            </button>
+                        </div>
+                        <img 
+                            src="bin-icon.png"
+                            className = "bin"
+                            onDrop={this.dropRemove}
+                            onDragOver={this.allowDrop}            
+                        >
 
-                </img>
-            </body>
-        </div>
+                        </img>
+                    </body>
+                </div>
+        </HashRouter>
         );
     }
 
