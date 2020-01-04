@@ -4,6 +4,7 @@ import AddCard from './AddCard.js';
 //import postData from './data/cards.json';
 import Card from './Card.js';
 import PostCards from './PostCards.js';
+import BinIcon from './bin-icon.png';
 import ReactDOM from 'react-dom';
 var postData = JSON.parse(localStorage.getItem('cards'));
 if (postData == null) postData = [];
@@ -53,12 +54,20 @@ class App extends Component {
                     {this.createBoard()}
                 </div>
 
-                <div id="addCard">
-                    <AddCard />
+                <div id="addCard" className="addCard">
+                    <AddCard grid={this.state.calGrid} week={this.state.week}/>
                     <button onClick = {this.addCard}>
                         Add a new card!
                     </button>
                 </div>
+                <img 
+                    src="bin-icon.png"
+                    className = "bin"
+                    onDrop={this.dropRemove}
+                    onDragOver={this.allowDrop}            
+                >
+
+                </img>
             </body>
         </div>
         );
@@ -216,7 +225,7 @@ class App extends Component {
             <div 
                 id={idName}
                 class="inner"
-                className="Red Text card" 
+                className="LightSmoothGreen Text card" 
                 draggable="true" 
                 style={height}
                 onDragStart={this.drag}
@@ -240,6 +249,16 @@ class App extends Component {
         card.id = "card" + "_" + card.id.split("_")[1] + "_" + ev.target.id + "_" + card.id.split("_")[7];
         this.SaveJSON(ev, card);
         //this.removeCard(postData.length - 1);
+        console.log(card.id);
+        //TEMPORARY FIX FOR A BUG VVV
+        this.refreshPage();
+    }
+
+    dropRemove = (ev) => {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var card = document.getElementById(data);
+        this.removeCard(card.id.split("_")[7]);
         this.refreshPage();
     }
 
@@ -330,8 +349,8 @@ class App extends Component {
         var time = document.getElementById("addCard_time");
         var height = document.getElementById("addCard_height");
         var msg = document.getElementById("addCard_message");
-
-        if(time == null || height == null || msg == null){
+        var d = document.getElementById("addCard_day");
+        if(time == null || height == null || msg == null || d == null){
             console.log("error");
             return;
         }
@@ -339,11 +358,11 @@ class App extends Component {
         time = Number(time.value);
         height = Number(height.value);
         msg = msg.value;
-
-        var id = postData[postData.length - 1].id + 1;
+        d = d.value;
+        var id = 0;
+        if(postData.length != 0) id = postData[postData.length - 1].id + 1;
         var y = this.state.year;
         var m = this.state.month;
-        var d = 3;
         var w = this.state.week;
 
         var JSONObject = {
