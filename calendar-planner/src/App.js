@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './styles.css';
 import AddCard from './AddCard.js';
-//import postData from './data/cards.json';
-import Card from './Card.js';
-import PostCards from './PostCards.js';
-import BinIcon from './bin-icon.png';
-import ReactDOM from 'react-dom';
+
 var postData = JSON.parse(localStorage.getItem('cards'));
 if (postData == null) postData = [];
 class App extends Component {
     constructor(props){
         super(props);
         let currDate = new Date();
-        let currYear = currDate.getFullYear();
-        let currMonth = currDate.getMonth() + 1;
-        let currWeek = 1;
+        let currYear = JSON.parse(localStorage.getItem('year'));
+        let currMonth = JSON.parse(localStorage.getItem('month'));
+        let currWeek = JSON.parse(localStorage.getItem('week'));
+        console.log(currYear + "+" + currMonth + "+" + currWeek);
+        currYear = currYear == null ? currDate.getFullYear() : Number(currYear);
+        currMonth = currMonth == null ? currDate.getMonth() + 1 : Number(currMonth);
+        currWeek = currWeek == null ? 1 : Number(currWeek);
         this.state = {
             year: currYear,
             month: currMonth,
@@ -75,38 +75,52 @@ class App extends Component {
 
     incYear = () => {
         this.setState({year : this.state.year + 1, week : 1, calGrid : this.getCalendarDates(this.state.year + 1, this.state.month)});
+        this.saveTimeState(this.state.year + 1, this.state.month, 1); 
     }
 
     decYear = () => {
         this.setState({year : this.state.year - 1, week : 1, calGrid : this.getCalendarDates(this.state.year - 1, this.state.month)});
+        this.saveTimeState(this.state.year - 1, this.state.month, 1); 
     }
-
+    
     incMonth = () => {
         if(this.state.month == 12){
             this.setState({year : this.state.year + 1, month : 1, week : 1, calGrid : this.getCalendarDates(this.state.year + 1, 1)});
+            this.saveTimeState(this.state.year + 1, 1, 1); 
         }else{
-            this.setState({month : this.state.month + 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month + 1)});   
+            this.setState({month : this.state.month + 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month + 1)});  
+            this.saveTimeState(this.state.year, this.state.month + 1, 1); 
         }
     }
-
+    
     decMonth = () => {
         if(this.state.month == 1){
             this.setState({year : this.state.year - 1, month : 12, week : 1, calGrid : this.getCalendarDates(this.state.year - 1, 12)});
+            this.saveTimeState(this.state.year - 1, 12, 1);
         }else{
-            this.setState({month : this.state.month - 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month - 1)});   
+            this.setState({month : this.state.month - 1, week : 1, calGrid : this.getCalendarDates(this.state.year, this.state.month - 1)}); 
+            this.saveTimeState(this.state.year, this.state.month - 1, 1);
         }
     }
-
+    
     incWeek = () => {
         if(this.state.week < 6){
             this.setState({week : this.state.week + 1});
+            this.saveTimeState(this.state.year, this.state.month, this.state.week + 1);
         }
     }
-
+    
     decWeek = () => {
         if(this.state.week > 1){
             this.setState({week : this.state.week - 1});
+            this.saveTimeState(this.state.year, this.state.month, this.state.week - 1);
         }
+    }
+    
+    saveTimeState = (y, m, w) => {     
+        localStorage.setItem('year', JSON.stringify(y));
+        localStorage.setItem('month', JSON.stringify(m));
+        localStorage.setItem('week', JSON.stringify(w));
     }
 
     createTimeColumn = () => {

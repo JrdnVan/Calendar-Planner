@@ -1,8 +1,8 @@
 {
-  "name": "calendar-planner",
+  "name": "Calendar-Planner",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jrdnvan.github.io/calendar-planner",
+  "homepage": "https://jrdnvan.github.io/Calendar-Planner",
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
