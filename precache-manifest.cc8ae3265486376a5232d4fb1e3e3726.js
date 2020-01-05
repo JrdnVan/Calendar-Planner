@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "848f5795f44b16f44e986655ab4bd5d2",
+    "revision": "a9508f78213e1231ff7f4fa5f4cb0352",
     "url": "/Calendar-Planner/index.html"
   },
   {
-    "revision": "1ee9c584def6e1877070",
-    "url": "/Calendar-Planner/static/css/main.2f587bcb.chunk.css"
+    "revision": "a39ad8a59dd605527041",
+    "url": "/Calendar-Planner/static/css/main.55d26a5d.chunk.css"
   },
   {
     "revision": "ed4afb3b23c0a2271de6",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Calendar-Planner/static/js/2.17650371.chunk.js.LICENSE"
   },
   {
-    "revision": "1ee9c584def6e1877070",
-    "url": "/Calendar-Planner/static/js/main.59af101b.chunk.js"
+    "revision": "a39ad8a59dd605527041",
+    "url": "/Calendar-Planner/static/js/main.43752a5d.chunk.js"
   },
   {
     "revision": "018e8d59ee5d35609f09",
