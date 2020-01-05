@@ -62,7 +62,7 @@ class AddCard extends Component {
 
     makeMessageInput = () => {
         return(
-        <input type="text" id="addCard_message" className="input" placeholder="Activity">
+        <input type="text" id="addCard_message" className="input inputText" placeholder="Activity">
         </input>
         )
     }    

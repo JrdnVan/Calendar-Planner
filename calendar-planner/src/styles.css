@@ -27,7 +27,7 @@
 }
 
 .addCardButton{
-    width: 100px;
+    width: 96px;
     height: 30px;
     border-radius: 5px;
 }
@@ -39,6 +39,17 @@
 .decButton{
     position: absolute;
     left: 40%;
+}
+.tipsButton{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    margin-top: 60px;
+    margin-left: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 .CardText{
     font-family: 'Lucida Sans', 'Lucida Sans Regular';
@@ -128,7 +139,7 @@
 
 .addCard{
     position:absolute;
-    background-color: #ededed;
+    background-color: #d6d6d6;
     border-radius: 3px;
     height: 200px;
     width: 120px;
@@ -145,9 +156,13 @@
     padding: 4px 8px;
     border-radius: 5px;
     font-size: 75%;
-    border: 2px solid #ededed;
+    border: 2px solid #d6d6d6;
 }
 
+.inputText{
+    width: 80px;
+    height: 20px;
+}
 @media screen and (max-width: 1200px) {
     .box{
         width: 45px;

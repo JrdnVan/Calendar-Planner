@@ -11,7 +11,6 @@ class App extends Component {
         let currYear = JSON.parse(localStorage.getItem('year'));
         let currMonth = JSON.parse(localStorage.getItem('month'));
         let currWeek = JSON.parse(localStorage.getItem('week'));
-        console.log(currYear + "+" + currMonth + "+" + currWeek);
         currYear = currYear == null ? currDate.getFullYear() : Number(currYear);
         currMonth = currMonth == null ? currDate.getMonth() + 1 : Number(currMonth);
         currWeek = currWeek == null ? 1 : Number(currWeek);
@@ -61,14 +60,18 @@ class App extends Component {
                             Add card
                         </button>
                     </div>
+
                     <img 
                         src="bin-icon.png"
                         className = "bin"
                         onDrop={this.dropRemove}
                         onDragOver={this.allowDrop}            
                     >
-
                     </img>
+
+                    <button onClick = {this.openTips} className="Button tipsButton">
+                            TIPS
+                    </button>
                 </body>
             </div>
         );
@@ -80,6 +83,7 @@ class App extends Component {
     }
 
     decYear = () => {
+        if(this.state.year == 0) return;
         this.setState({year : this.state.year - 1, week : 1, calGrid : this.getCalendarDates(this.state.year - 1, this.state.month)});
         this.saveTimeState(this.state.year - 1, this.state.month, 1); 
     }
@@ -105,7 +109,7 @@ class App extends Component {
     }
     
     incWeek = () => {
-        if(this.state.week < 6){
+        if(this.state.week < this.howManyWeeks()){
             this.setState({week : this.state.week + 1});
             this.saveTimeState(this.state.year, this.state.month, this.state.week + 1);
         }
@@ -366,14 +370,24 @@ class App extends Component {
         var msg = document.getElementById("addCard_message");
         var d = document.getElementById("addCard_day");
         if(time == null || height == null || msg == null || d == null){
-            console.log("error");
+            alert("Error: NULL");
             return;
         }
         
         time = Number(time.value);
         height = Number(height.value);
         msg = msg.value;
-        d = d.value;
+        d = Number(d.value);
+        console.log(time + "A" + height + "A" + msg + "A" + d);
+        if((time == "" && time != 0) || height == "" || msg == "" || d == ""){
+            alert("Please select all fields before adding a card.");
+            return;
+        }
+        if(time + height > 24){
+            alert("The height of a card can't exceed (24 - Start Time).");
+            return;
+        }
+
         var id = 0;
         if(postData.length != 0) id = postData[postData.length - 1].id + 1;
         var y = this.state.year;
@@ -411,6 +425,28 @@ class App extends Component {
 
     refreshPage = () => {
         window.location.reload();
+    }
+
+    howManyWeeks = () => {
+        for(var i = 1; i < this.state.calGrid.length; i++){
+            if(this.state.calGrid[i][0] == 0) return i;
+        }
+        return 6;
+    }
+
+    openTips = () => {
+        alert("Tips:\n" +
+            "1. When dragging a card onto another time block, the top of the card will appear where your cursor is.\n" +
+            "2. Card data is currently stored on your computer via cookies. Clearing cookies will also clear your card data.\n" +
+            "3. When creating a card, wisely choose the Length of the card as it can't exceed (24 - (Starting Time)).\n" +
+            "-----\n" +
+            "Current issues to fix:\n" +
+            "1. Safari start dates are incorrect.\n" +
+            "-----\n" +
+            "Noted Feedbacks:\n" +
+            "1. Ability to edit pre-existing cards.\n" +
+            "2. Adding an online DB via Facebook/Gmail logins.\n"
+            );
     }
 }
 
