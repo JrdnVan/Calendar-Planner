@@ -217,7 +217,7 @@ class App extends Component {
     getCalendarDates = (y, m) => {
         const cal =[[],[],[],[],[],[]];
         //cd = what DAY the 1st lies on for the given date
-        var d = new Date(y + '-' + m + '-' + 1);
+        var d = new Date((y + '-' + m + '-' + 1).replace(/-/g, "/"));
         var cd = d.getDay();
 
         var d_i = 1;
@@ -295,7 +295,7 @@ class App extends Component {
             if(card == list[i]) continue;
             var cardVals = list[i].id.split("_");
             var h = cardVals[1]; var y = cardVals[3]; var m = cardVals[4]; var d = cardVals[5]; var t = cardVals[6];
-            var date = new Date(y + '-' + m + '-' + d);
+            var date = new Date((y + '-' + m + '-' + d).replace(/-/g, "/"));
             var curr_day = date.getDay();
             for(var j = 0; j < h; j++){
                 board[curr_day][Number(t) + Number(j)] = 1;
@@ -304,7 +304,7 @@ class App extends Component {
 
         var divVals = ev.target.id.split("_");
         var div_year = divVals[1]; var div_month = divVals[2]; var div_day = divVals[3]; var div_time = divVals[4]; 
-        var date = new Date(div_year + '-' + div_month + '-' + div_day);
+        var date = new Date((div_year + '-' + div_month + '-' + div_day).replace(/-/g, "/"));
         var curr_day = date.getDay();
         var height = card.id.split("_")[1];
         for(var i = 0; i < height; i++){
