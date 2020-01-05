@@ -1,6 +1,6 @@
 .Column {
     float: left;
-    height: 80%;
+    height: 400px;
     width: 12.5%;
 }
 
@@ -112,3 +112,23 @@
     margin-top: 150px;
     margin-right: 100px;
 }
+
+@media screen and (max-width: 1200px) {
+    .box{
+        width: 50px;
+    }
+    .clearBox{
+        width: 50px;
+    }
+    .card{
+        width: 50px;
+    }
+    .Text{
+        font-size: 45%;
+    }
+    .addCard{
+        position: relative;
+        margin-right: 10%;
+        text-align: center;
+    }
+  }

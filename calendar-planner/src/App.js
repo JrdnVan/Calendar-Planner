@@ -324,10 +324,10 @@ class App extends Component {
         var allCards = [];
         postData.map((postDetail, index)=> {
             var h = 20;
-            var br = 3;
+            var br = 2;
             //If card belongs on the current board
             if(postDetail.year == this.state.year && postDetail.month == this.state.month && postDetail.week == this.state.week){
-                var height = {height: h*(postDetail.length) + br*(postDetail.length - 2)}
+                var height = {height: h*(postDetail.length) + br*(postDetail.length-1)}
                 var card_name = "card" + "_" + postDetail.length + "_" + "box" + "_" + postDetail.year + "_" + postDetail.month + "_" + postDetail.day + "_" + postDetail.start_time + "_" + postDetail.id;
                 var card = this.makeCard(card_name, height, postDetail.message);
                 allCards.push(card);
