@@ -49,7 +49,7 @@ class App extends Component {
                         {"Week " + this.state.week}
                         <button onClick={this.incWeek} id="incWeekButton" className="incButton Button">&gt;</button>
                     </div>
-                    
+                    <div className="break"></div>
                     <div id="board_wrapper" className="Center">
                         {this.createBoard()}
                     </div>
