@@ -27,6 +27,7 @@ class App extends Component {
     render() {
         return(
             <div className="App" id="app">
+                <meta name="viewport" content="width=device-width, user-scalable=no"></meta>
                 <header className="header MainText">
                     HOME
                 </header>
