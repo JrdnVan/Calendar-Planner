@@ -9,10 +9,11 @@ class AddCard extends Component {
     render() {
         return(
             <div>
+                <div className="break"></div>
                 {this.makeDayInput()}<br></br>
                 {this.makeTimeInput()}<br></br>
                 {this.makeHeightInput()}<br></br>
-                {this.makeMessageInput()}
+                {this.makeMessageInput()}<br></br>
             </div>
         );
     }
@@ -25,7 +26,7 @@ class AddCard extends Component {
             options.push(<option value={this.props.grid[this.props.week - 1][i]}>{this.props.grid[this.props.week - 1][i]}</option>);
         }
         return(
-            <select id="addCard_day">
+            <select id="addCard_day" className="input">
                 {options}
             </select>
         )
@@ -39,7 +40,7 @@ class AddCard extends Component {
             options.push(<option value={i}>{string}</option>);
         }
         return(
-        <select id="addCard_time">
+        <select id="addCard_time" className="input">
             {options}
         </select>
         )
@@ -48,12 +49,12 @@ class AddCard extends Component {
     makeHeightInput = () => {
         var options = [];
         options.push(<option value="" selected disabled hidden>Length</option>);
-        for(var i = 0; i < 24; i++){
+        for(var i = 1; i <= 24; i++){
             var string = i;
             options.push(<option value={i}>{string}</option>);
         }
         return(
-        <select id="addCard_height">
+        <select id="addCard_height" className="input">
             {options}
         </select>
         )
@@ -61,7 +62,7 @@ class AddCard extends Component {
 
     makeMessageInput = () => {
         return(
-        <input type="text" id="addCard_message">
+        <input type="text" id="addCard_message" className="input" placeholder="Activity">
         </input>
         )
     }    

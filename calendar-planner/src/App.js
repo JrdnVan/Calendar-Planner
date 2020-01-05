@@ -31,24 +31,24 @@ class App extends Component {
                 <header className="header MainText">
                     HOME
                 </header>
-
+                <div className="break"></div>
                 <body className="body">
                     <div className="Center MainText">
-                        <button onClick={this.decYear} id="decYearButton" className="decButton">&lt;</button>                
+                        <button onClick={this.decYear} id="decYearButton" className="decButton Button">&lt;</button>                
                         {this.state.year}
-                        <button onClick={this.incYear} id="incYearButton" className="incButton">&gt;</button>
+                        <button onClick={this.incYear} id="incYearButton" className="incButton Button">&gt;</button>
                     </div>
 
                     <div className="Center MainText">
-                        <button onClick={this.decMonth} id="decMonthButton" className="decButton">&lt;</button>
+                        <button onClick={this.decMonth} id="decMonthButton" className="decButton Button">&lt;</button>
                         {this.state.monthNames[this.state.month - 1]}
-                        <button onClick={this.incMonth} id="incMonthButton" className="incButton">&gt;</button>
+                        <button onClick={this.incMonth} id="incMonthButton" className="incButton Button">&gt;</button>
                     </div>
 
                     <div className="Center MainText">
-                        <button onClick={this.decWeek} id="decWeekButton" className="decButton">&lt;</button>
+                        <button onClick={this.decWeek} id="decWeekButton" className="decButton Button">&lt;</button>
                         {"Week " + this.state.week}
-                        <button onClick={this.incWeek} id="incWeekButton" className="incButton">&gt;</button>
+                        <button onClick={this.incWeek} id="incWeekButton" className="incButton Button">&gt;</button>
                     </div>
                     
                     <div id="board_wrapper" className="Center">
@@ -57,8 +57,8 @@ class App extends Component {
 
                     <div id="addCard" className="addCard">
                         <AddCard grid={this.state.calGrid} week={this.state.week}/>
-                        <button onClick = {this.addCard}>
-                            Add a new card!
+                        <button onClick = {this.addCard} className="Button addCardButton">
+                            Add card
                         </button>
                     </div>
                     <img 
@@ -240,7 +240,7 @@ class App extends Component {
             <div 
                 id={idName}
                 class="inner"
-                className="LightSmoothGreen Text card" 
+                className="LightSmoothGreen CardText card" 
                 draggable="true" 
                 style={height}
                 onDragStart={this.drag}

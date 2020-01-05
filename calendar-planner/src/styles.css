@@ -1,3 +1,6 @@
+.break{
+    height: 10px;
+}
 .Column {
     float: left;
     height: 400px;
@@ -12,6 +15,23 @@
     display: inline-block;
 }
 
+.Button{
+    background-color: #79B508;
+    border: none;
+    color: white;
+    border-radius: 3px;
+    margin-top: 6px;
+}
+.Button:hover{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.addCardButton{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+}
+
 .incButton{
     position: absolute;
     right: 40%;
@@ -20,7 +40,10 @@
     position: absolute;
     left: 40%;
 }
-
+.CardText{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular';
+    font-size: 75%;
+}
 .Text{
     font-family: 'Lucida Sans', 'Lucida Sans Regular';
     font-size: 75%;
@@ -101,34 +124,57 @@
     right:0;
     margin-top: 60px;
     margin-right: 10px;
-    /*
-    margin-right: 570px;*/
 }
 
 .addCard{
     position:absolute;
+    background-color: #ededed;
+    border-radius: 3px;
+    height: 200px;
+    width: 120px;
     top:0;
     right:0; 
-    margin-top: 150px;
+    margin-top: 146px;
     margin-right: 100px;
+    text-align: center;
+}
+
+.input{
+    width: 100px;
+    height: 30px;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 75%;
+    border: 2px solid #ededed;
 }
 
 @media screen and (max-width: 1200px) {
     .box{
-        width: 50px;
+        width: 45px;
     }
     .clearBox{
-        width: 50px;
+        width: 45px;
     }
     .card{
-        width: 50px;
+        width: 45px;
     }
     .Text{
-        font-size: 45%;
+        font-size: 40%;
+    }
+    .CardText{
+        font-size: 100%;
+    }     
+    .incButton{
+        right: 25%;
+    }
+    .decButton{
+        left: 25%;
     }
     .addCard{
         position: relative;
         margin-right: 10%;
-        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 8em;
     }
   }
