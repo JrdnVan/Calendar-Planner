@@ -4,6 +4,55 @@ import AddCard from './AddCard.js';
 
 var postData = JSON.parse(localStorage.getItem('cards'));
 if (postData == null) postData = [];
+
+var lightBoxColour = "#f7f7f7"; //Default
+var lightBox = JSON.parse(localStorage.getItem('lightBox'));
+if (lightBox == null){
+    document.documentElement.style.setProperty('--lightBox', lightBoxColour);
+}else{
+    document.documentElement.style.setProperty('--lightBox', lightBox);
+}
+
+var normalBoxColour = "#ededed"; //Default
+var normalBox = JSON.parse(localStorage.getItem('normalBox'));
+if (normalBox == null){
+    document.documentElement.style.setProperty('--normalBox', normalBoxColour);
+}else{
+    document.documentElement.style.setProperty('--normalBox', normalBox);
+}
+
+var darkBoxColour = "#d6d6d6"; //Default
+var darkBox = JSON.parse(localStorage.getItem('darkBox'));
+if (darkBox == null){
+    document.documentElement.style.setProperty('--darkBox', darkBoxColour);
+}else{
+    document.documentElement.style.setProperty('--darkBox', darkBox);
+}
+
+var mainColourColour = "#79B508"; //Default
+var mainColour = JSON.parse(localStorage.getItem('mainColour'));
+if (mainColour == null){
+    document.documentElement.style.setProperty('--mainColour', mainColourColour);
+}else{
+    document.documentElement.style.setProperty('--mainColour', mainColour);
+}
+
+var darkMainColourColour = "#5B8905"; //Default
+var darkMainColour = JSON.parse(localStorage.getItem('darkMainColour'));
+if (darkMainColour == null){
+    document.documentElement.style.setProperty('--darkMainColour', darkMainColourColour);
+}else{
+    document.documentElement.style.setProperty('--darkMainColour', darkMainColour);
+}
+
+var backgroundColourColour = "#FFFFFF"; //Default
+var backgroundColour = JSON.parse(localStorage.getItem('backgroundColour'));
+if (backgroundColour == null){
+    document.documentElement.style.setProperty('--backgroundColour', backgroundColourColour);
+}else{
+    document.documentElement.style.setProperty('--backgroundColour', backgroundColour);
+}
+
 class App extends Component {
     constructor(props){
         super(props);
@@ -70,14 +119,25 @@ class App extends Component {
                     </img>
                     <div className = "settingButtons">
                         <div className="hideme">
-                            <button className = "Button tipsButton ButtonC">DELETE DATA</button>
-                            <button className = "Button tipsButton ButtonB">CUSTOM COLOURS</button>
-                            <button className = "Button tipsButton ButtonA">PREMADE THEMES</button>
+                            <button className = "Button tipsButton ButtonC">
+                                DELETE DATA
+                            </button>
+                            <button className = "Button tipsButton ButtonB">
+                                CUSTOM COLOURS
+                            </button>
+
+                            <button className = "Button tipsButton ButtonA">
+                                PREMADE THEMES
+                            </button>
                         </div>
+
                         <button className="Button tipsButton" onClick ={this.openTips}>
                                 GUIDE / SETTINGS
                         </button>
                     </div>
+                    <button onClick = {this.applyColourNormal}>NORMAL</button>
+                    <button onClick = {this.applyColourPink}>PINK</button>
+                    <button onClick = {this.applyColourEpic}>EPIC</button>
                 </body>
             </div>
         );
@@ -139,7 +199,7 @@ class App extends Component {
         for(var i = 0; i < 24; i++){
             col.push(<div 
                         class="outer"
-                        className="box Gray Text"               
+                        className="box darkBoxColour Text"               
                     >
                         {i+":00"}
                     </div>);
@@ -176,14 +236,14 @@ class App extends Component {
         const currDay = this.state.dayNames[day];
         for(var i = 0; i < 24; i++){
             boxes.push(<div 
-                        className="clearBox"               
+                        className="clearBox lightBoxColour"               
                         >
                         </div>);
         }
 
         return(
             <div className="Column" id={day}>
-                <div className="box Gray Text">{currDay}</div>
+                <div className="box darkBoxColour Text">{currDay}</div>
                 {boxes}
             </div>
         )        
@@ -195,7 +255,7 @@ class App extends Component {
         for(var i = 0; i < 24; i++){
             hrs.push(<div id = {"box" + "_" + this.state.year + "_" + this.state.month + "_" + this.state.calGrid[this.state.week - 1][day] + "_" + i} 
                         class="outer"
-                        className="box LightGray Text"
+                        className="box normalBoxColour Text"
                         onDrop={this.drop}
                         onDragOver={this.allowDrop}                    
                     >
@@ -205,7 +265,7 @@ class App extends Component {
 
         return(
             <div className="Column" id={day}>
-                <div className="box Gray Text">{this.state.calGrid[this.state.week - 1][day] + " " + currDay}</div>
+                <div className="box darkBoxColour Text">{this.state.calGrid[this.state.week - 1][day] + " " + currDay}</div>
                 {hrs}
             </div>
         )
@@ -250,7 +310,7 @@ class App extends Component {
             <div 
                 id={idName}
                 class="inner"
-                className="LightSmoothGreen CardText card" 
+                className="mainColour CardText card" 
                 draggable="true" 
                 style={height}
                 onDragStart={this.drag}
@@ -453,6 +513,29 @@ class App extends Component {
             "1. Ability to edit pre-existing cards. (Probably?)\n" +
             "2. Adding an online DB via Facebook/Gmail logins. (Most likely will do)\n"
             );
+    }
+
+    applyColourNormal = () => {
+        this.setColours("#f7f7f7", "#ededed", "#d6d6d6", "#79B508", "#5B8905", "#FFFFFF");
+        this.refreshPage();
+    }
+
+    applyColourPink = () => {
+        this.setColours("#FFF0F5", "#FFE4E1", "#FFC1C1", "#FFAEB9", "#FF8C69", "#FFFFFF");
+        this.refreshPage();
+    }
+
+    applyColourEpic = () => {
+        this.setColours("red", "yellow", "green", "orange", "blue", "purple");
+        this.refreshPage();
+    }
+    setColours = (lb, nb, db, mc, dmc, bgc) => {
+        localStorage.setItem('lightBox', JSON.stringify(lb));
+        localStorage.setItem('normalBox', JSON.stringify(nb));
+        localStorage.setItem('darkBox', JSON.stringify(db));
+        localStorage.setItem('mainColour', JSON.stringify(mc));
+        localStorage.setItem('darkMainColour', JSON.stringify(dmc));
+        localStorage.setItem('backgroundColour', JSON.stringify(bgc));
     }
 }
 
