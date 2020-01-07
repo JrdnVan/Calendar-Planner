@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/Calendar-Planner/static/css/main.2214143a.chunk.css",
-    "main.js": "/Calendar-Planner/static/js/main.a35373d7.chunk.js",
-    "main.js.map": "/Calendar-Planner/static/js/main.a35373d7.chunk.js.map",
+    "main.css": "/Calendar-Planner/static/css/main.a35e839c.chunk.css",
+    "main.js": "/Calendar-Planner/static/js/main.1d37a662.chunk.js",
+    "main.js.map": "/Calendar-Planner/static/js/main.1d37a662.chunk.js.map",
     "runtime-main.js": "/Calendar-Planner/static/js/runtime-main.6cd361fa.js",
     "runtime-main.js.map": "/Calendar-Planner/static/js/runtime-main.6cd361fa.js.map",
     "static/js/2.17650371.chunk.js": "/Calendar-Planner/static/js/2.17650371.chunk.js",
     "static/js/2.17650371.chunk.js.map": "/Calendar-Planner/static/js/2.17650371.chunk.js.map",
     "index.html": "/Calendar-Planner/index.html",
-    "precache-manifest.ae26374db25310b83c028cc74572efac.js": "/Calendar-Planner/precache-manifest.ae26374db25310b83c028cc74572efac.js",
+    "precache-manifest.4430a18c46f53aea2c1bf3fa73cef687.js": "/Calendar-Planner/precache-manifest.4430a18c46f53aea2c1bf3fa73cef687.js",
     "service-worker.js": "/Calendar-Planner/service-worker.js",
-    "static/css/main.2214143a.chunk.css.map": "/Calendar-Planner/static/css/main.2214143a.chunk.css.map",
+    "static/css/main.a35e839c.chunk.css.map": "/Calendar-Planner/static/css/main.a35e839c.chunk.css.map",
     "static/js/2.17650371.chunk.js.LICENSE": "/Calendar-Planner/static/js/2.17650371.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.6cd361fa.js",
     "static/js/2.17650371.chunk.js",
-    "static/css/main.2214143a.chunk.css",
-    "static/js/main.a35373d7.chunk.js"
+    "static/css/main.a35e839c.chunk.css",
+    "static/js/main.1d37a662.chunk.js"
   ]
 }
