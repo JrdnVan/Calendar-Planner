@@ -1,3 +1,10 @@
+:root{
+    --A: 60px;
+    --B: 120px;
+    --C: 180px;
+    --animationTime: 0.7s;
+}
+
 .break{
     height: 10px;
 }
@@ -21,9 +28,12 @@
     color: white;
     border-radius: 3px;
     margin-top: 6px;
+    cursor: pointer;
 }
+
 .Button:hover{
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-color: #5B8905;
 }
 
 .addCardButton{
@@ -46,8 +56,8 @@
     left: 0;
     height: 50px;
     width: 50px;
-    margin-top: 60px;
-    margin-left: 10px;
+    margin-top: 0px;
+    font-size: 40%;
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -163,6 +173,65 @@
     width: 80px;
     height: 20px;
 }
+
+.settingButtons{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+    margin-top: 60px;
+    margin-left: 10px;  
+}
+
+.settingButtons:hover{
+    height: 180px;
+}
+
+.settingButtons:hover .hideme{
+    display: block;
+}
+
+.hideme{
+    display:none;
+}
+
+.settingButtons .ButtonA{
+    margin-top: var(--A);
+    animation: animationA var(--animationTime);
+    animation-timing-function: ease;
+
+}
+
+.settingButtons .ButtonB{
+    margin-top: var(--B);
+    animation: animationB var(--animationTime);
+    animation-timing-function: ease;
+}
+
+.settingButtons .ButtonC{ 
+    margin-top: var(--C);
+    animation: animationC var(--animationTime);
+    animation-timing-function: ease;
+}
+
+@keyframes back{
+    to{top:0px;}
+}
+
+@keyframes animationA {
+    from {top: -60px;}
+    to {top: 0px;}
+}
+@keyframes animationB {
+    from {top: -120px;}
+    to {top: 0px;}
+}
+@keyframes animationC {
+    from {top: -180px;}
+    to {top: 0px;}
+}
+
 @media screen and (max-width: 1200px) {
     .box{
         width: 45px;

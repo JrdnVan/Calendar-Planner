@@ -68,10 +68,16 @@ class App extends Component {
                         onDragOver={this.allowDrop}            
                     >
                     </img>
-
-                    <button onClick = {this.openTips} className="Button tipsButton">
-                            TIPS
-                    </button>
+                    <div className = "settingButtons">
+                        <div className="hideme">
+                            <button className = "Button tipsButton ButtonC">DELETE DATA</button>
+                            <button className = "Button tipsButton ButtonB">CUSTOM COLOURS</button>
+                            <button className = "Button tipsButton ButtonA">PREMADE THEMES</button>
+                        </div>
+                        <button className="Button tipsButton" onClick ={this.openTips}>
+                                GUIDE / SETTINGS
+                        </button>
+                    </div>
                 </body>
             </div>
         );
@@ -438,14 +444,14 @@ class App extends Component {
         alert("Tips:\n" +
             "1. When dragging a card onto another time block, the top of the card will appear where your cursor is.\n" +
             "2. Card data is currently stored on your computer via cookies. Clearing cookies will also clear your card data.\n" +
-            "3. When creating a card, wisely choose the Length of the card as it can't exceed (24 - (Starting Time)).\n" +
+            "3. When creating a card, wisely choose the Length of the card as it can't exceed (24 - (Starting Time)). (Would like to fix selection options in the future)\n" +
             "-----\n" +
             "Current issues to fix:\n" +
-            "1. Safari start dates are incorrect.\n" +
+            "1. Safari iOS can't drag/drop.\n" +
             "-----\n" +
             "Noted Feedbacks:\n" +
-            "1. Ability to edit pre-existing cards.\n" +
-            "2. Adding an online DB via Facebook/Gmail logins.\n"
+            "1. Ability to edit pre-existing cards. (Probably?)\n" +
+            "2. Adding an online DB via Facebook/Gmail logins. (Most likely will do)\n"
             );
     }
 }
