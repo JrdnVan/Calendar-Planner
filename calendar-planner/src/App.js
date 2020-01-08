@@ -125,16 +125,11 @@ class App extends Component {
                             <button className = "Button tipsButton ButtonB">
                                 CUSTOM COLOURS
                             </button>
-
-                            <button className = "Button tipsButton ButtonA">
-                                PREMADE THEMES
-                            </button>
+                            {this.makeSettingButton("A", "PREMADE THEMES", "TESTINGGGG")}
                         </div>
-
-                        <button className="Button tipsButton" onClick ={this.openTips}>
-                                GUIDE / SETTINGS
-                        </button>
+                        {this.makeSettingButton("Main", "GUIDE / SETTINGS", this.openTips())}
                     </div>
+
                     <button onClick = {this.applyColourNormal}>NORMAL</button>
                     <button onClick = {this.applyColourPink}>PINK</button>
                     <button onClick = {this.applyColourEpic}>EPIC</button>
@@ -501,17 +496,19 @@ class App extends Component {
     }
 
     openTips = () => {
-        alert("Tips:\n" +
-            "1. When dragging a card onto another time block, the top of the card will appear where your cursor is.\n" +
-            "2. Card data is currently stored on your computer via cookies. Clearing cookies will also clear your card data.\n" +
-            "3. When creating a card, wisely choose the Length of the card as it can't exceed (24 - (Starting Time)). (Would like to fix selection options in the future)\n" +
-            "-----\n" +
-            "Current issues to fix:\n" +
-            "1. Safari iOS can't drag/drop.\n" +
-            "-----\n" +
-            "Noted Feedbacks:\n" +
-            "1. Ability to edit pre-existing cards. (Probably?)\n" +
-            "2. Adding an online DB via Facebook/Gmail logins. (Most likely will do)\n"
+        return(
+            <div className = "tipText">
+                <h5> Tips:</h5>
+                <p> 1. When dragging a card onto another time block, the top of the card will appear where your cursor is.</p>
+                <p> 2. Card data is currently stored on your computer via cookies. Clearing cookies will also clear your card data.</p>
+                <p> 3. When creating a card, wisely choose the Length of the card as it can't exceed (24 - (Starting Time)). (Would like to fix selection options in the future)</p>
+                <p> -----</p>
+                <h5> Current issues to fix:</h5>
+                <p> 1. Safari iOS can't drag/drop.</p>
+                <h5> Noted Feedbacks:</h5>
+                <p> 1. Ability to edit pre-existing cards. (Probably?)</p>
+                <p> 2. Adding an online DB via Facebook/Gmail logins. (Most likely will do)</p>
+            </div>
             );
     }
 
@@ -536,6 +533,26 @@ class App extends Component {
         localStorage.setItem('mainColour', JSON.stringify(mc));
         localStorage.setItem('darkMainColour', JSON.stringify(dmc));
         localStorage.setItem('backgroundColour', JSON.stringify(bgc));
+    }
+
+    makeSettingButton = (id, text, child) => {
+        var Hider = "Hider" + id;
+        var hideme = "hideme" + id;
+        var setting = "backgroundHideme setting" + id + " settingDiv";
+        var button = "Button tipsButton Button" + id;
+        var settingID = "setting" + id;
+        return(
+            <div className ={Hider}>
+                <div className = {hideme}>
+                    <div id={settingID} className={setting}>
+                        {child}
+                    </div>
+                </div>
+                <button className = {button}>
+                    {text}
+                </button>
+            </div>
+        )
     }
 }
 
