@@ -49,12 +49,62 @@
     margin-top: 6px;
     cursor: pointer;
 }
-
 .Button:hover{
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     background-color: var(--darkMainColour);
 }
-
+.themesButton{
+    height: 50px;
+    width: 50px;
+    margin-left: 10px;
+    margin-top: 10px;
+    border: 3px solid var(--mainColour);
+    border-radius: 3px;
+    float: left;
+    text-align: center;
+    font-size: 50%;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.themesButton:hover{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border: 3px solid var(--darkMainColour);
+}
+.coloursButton {
+	opacity: 0;
+    display: block;
+    height: 30px;
+	width: 40px;
+    border: none;
+}
+.coloursButtonWrapper {
+    height: 32px;
+    width: 44px;
+    border: 3px solid var(--mainColour);
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;    
+}
+.coloursButtonWrapper:hover{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border: 3px solid var(--darkMainColour);   
+}
+.coloursText{
+    margin-top: 0px;
+    text-align: center;
+    font-size: 65%;
+    font-weight: bold;
+    letter-spacing: 0.5px;  
+    color: var(--mainColour);    
+}
+.coloursWrapper{
+    height: 50px;
+    width: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+}
 .addCardButton{
     width: 96px;
     height: 30px;

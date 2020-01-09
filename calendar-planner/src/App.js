@@ -122,17 +122,11 @@ class App extends Component {
                             <button className = "Button tipsButton ButtonC">
                                 DELETE DATA
                             </button>
-                            <button className = "Button tipsButton ButtonB">
-                                CUSTOM COLOURS
-                            </button>
-                            {this.makeSettingButton("A", "PREMADE THEMES", "TESTINGGGG")}
+                            {this.makeSettingButton("B", "CUSTOM COLOURS", this.customColoursContent())}
+                            {this.makeSettingButton("A", "PREMADE THEMES", this.themesContent())}
                         </div>
                         {this.makeSettingButton("Main", "GUIDE / SETTINGS", this.openTips())}
                     </div>
-
-                    <button onClick = {this.applyColourNormal}>NORMAL</button>
-                    <button onClick = {this.applyColourPink}>PINK</button>
-                    <button onClick = {this.applyColourEpic}>EPIC</button>
                 </body>
             </div>
         );
@@ -533,6 +527,70 @@ class App extends Component {
         localStorage.setItem('mainColour', JSON.stringify(mc));
         localStorage.setItem('darkMainColour', JSON.stringify(dmc));
         localStorage.setItem('backgroundColour', JSON.stringify(bgc));
+    }
+
+    makeColourButton = (colour, text) => {
+        var string = "colourButton_" + colour;
+        return(
+            <div className = "coloursWrapper">
+                <div className="coloursButtonWrapper" style={{backgroundColor: JSON.parse(localStorage.getItem(colour))}}>
+                    <input id={string} type="color" className = "coloursButton" onChange={this.changeColour} value={JSON.parse(localStorage.getItem(colour))}>
+                    </input>
+                </div>
+                <p className="coloursText">
+                    {text}
+                </p>
+            </div>
+        )
+    }
+
+    changeColour = () => {
+        var arr = ['lightBox', 'normalBox', 'darkBox', 'mainColour', 'darkMainColour', 'backgroundColour'];
+        for(var i = 0; i < arr.length; i++){
+            localStorage.setItem(arr[i], JSON.stringify(document.getElementById("colourButton_" + arr[i]).value));
+        }
+        this.refreshPage();
+    }
+
+    customColoursContent = () => {
+        return(
+            <div>
+                {this.makeColourButton('mainColour', "MAIN")}                                                
+                {this.makeColourButton('darkMainColour', "DARK MAIN")}                                                
+                {this.makeColourButton('backgroundColour', "BACK- GROUND")}                                                
+                {this.makeColourButton('lightBox', "LIGHT BOX")}
+                {this.makeColourButton('normalBox', "NORMAL BOX")}                                                
+                {this.makeColourButton('darkBox', "DARK BOX")}                                                
+            </div>
+        )        
+    }
+
+    themesContent = () => {
+        return(
+            <div>
+                <button className = "themesButton" onClick = {this.applyColourNormal} style={{color: "#79B508", backgroundColor: "#ededed"}}>NORMAL</button>
+                <button className = "themesButton" onClick = {this.applyColourPink} style={{color: "#FFAEB9", backgroundColor: "#FFE4E1"}}>PINK BY SHIRLEY</button>
+                <button className = "themesButton" onClick = {this.applyColourEpic} style={{color: "yellow", backgroundColor: "orange"}}>EPIC TEST EPIC</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+                <button className = "themesButton">EMPTY</button>
+            </div>
+        )
+
     }
 
     makeSettingButton = (id, text, child) => {
