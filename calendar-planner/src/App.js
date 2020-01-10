@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import './styles.css';
 import AddCard from './AddCard.js';
 
+//---------------------------------------------------------------------------------------------------------------------------------
+//PRE LOAD
 var postData = JSON.parse(localStorage.getItem('cards'));
 if (postData == null) postData = [];
 
 var lightBoxColour = "#f7f7f7"; //Default
 var lightBox = JSON.parse(localStorage.getItem('lightBox'));
 if (lightBox == null){
+    localStorage.setItem('lightBox', JSON.stringify(lightBoxColour));
     document.documentElement.style.setProperty('--lightBox', lightBoxColour);
 }else{
     document.documentElement.style.setProperty('--lightBox', lightBox);
@@ -16,6 +19,7 @@ if (lightBox == null){
 var normalBoxColour = "#ededed"; //Default
 var normalBox = JSON.parse(localStorage.getItem('normalBox'));
 if (normalBox == null){
+    localStorage.setItem('normalBox', JSON.stringify(normalBoxColour));
     document.documentElement.style.setProperty('--normalBox', normalBoxColour);
 }else{
     document.documentElement.style.setProperty('--normalBox', normalBox);
@@ -24,6 +28,7 @@ if (normalBox == null){
 var darkBoxColour = "#d6d6d6"; //Default
 var darkBox = JSON.parse(localStorage.getItem('darkBox'));
 if (darkBox == null){
+    localStorage.setItem('darkBox', JSON.stringify(darkBoxColour));
     document.documentElement.style.setProperty('--darkBox', darkBoxColour);
 }else{
     document.documentElement.style.setProperty('--darkBox', darkBox);
@@ -32,6 +37,7 @@ if (darkBox == null){
 var mainColourColour = "#79B508"; //Default
 var mainColour = JSON.parse(localStorage.getItem('mainColour'));
 if (mainColour == null){
+    localStorage.setItem('mainColour', JSON.stringify(mainColourColour));
     document.documentElement.style.setProperty('--mainColour', mainColourColour);
 }else{
     document.documentElement.style.setProperty('--mainColour', mainColour);
@@ -40,6 +46,7 @@ if (mainColour == null){
 var darkMainColourColour = "#5B8905"; //Default
 var darkMainColour = JSON.parse(localStorage.getItem('darkMainColour'));
 if (darkMainColour == null){
+    localStorage.setItem('darkMainColour', JSON.stringify(darkMainColourColour));
     document.documentElement.style.setProperty('--darkMainColour', darkMainColourColour);
 }else{
     document.documentElement.style.setProperty('--darkMainColour', darkMainColour);
@@ -48,11 +55,25 @@ if (darkMainColour == null){
 var backgroundColourColour = "#FFFFFF"; //Default
 var backgroundColour = JSON.parse(localStorage.getItem('backgroundColour'));
 if (backgroundColour == null){
+    localStorage.setItem('backgroundColour', JSON.stringify(backgroundColourColour));
     document.documentElement.style.setProperty('--backgroundColour', backgroundColourColour);
 }else{
     document.documentElement.style.setProperty('--backgroundColour', backgroundColour);
 }
 
+var colours =  JSON.parse(localStorage.getItem('colours'));
+if(colours == null || colours.length == 0){
+    localStorage.setItem('colours', JSON.stringify([{name: "Main Colour", colour: JSON.parse(localStorage.getItem('mainColour'))},{name: "TEST", colour: "black"}]));
+}
+var colours =  JSON.parse(localStorage.getItem('colours'));
+for(var i = 0; i < colours.length; i++){
+    if(colours[i].name == "Main Colour"){
+        colours[i].colour = JSON.parse(localStorage.getItem('mainColour'));
+        break;
+    }
+}
+localStorage.setItem('colours', JSON.stringify(colours));
+//---------------------------------------------------------------------------------------------------------------------------------
 class App extends Component {
     constructor(props){
         super(props);
@@ -98,13 +119,15 @@ class App extends Component {
                         {"Week " + this.state.week}
                         <button onClick={this.incWeek} id="incWeekButton" className="incButton Button">&gt;</button>
                     </div>
+
                     <div className="break"></div>
+
                     <div id="board_wrapper" className="Center">
                         {this.createBoard()}
                     </div>
 
                     <div id="addCard" className="addCard">
-                        <AddCard grid={this.state.calGrid} week={this.state.week}/>
+                        <AddCard grid={this.state.calGrid} week={this.state.week} colours = {JSON.parse(localStorage.getItem('colours'))}/>
                         <button onClick = {this.addCard} className="Button addCardButton">
                             Add card
                         </button>
@@ -117,11 +140,13 @@ class App extends Component {
                         onDragOver={this.allowDrop}            
                     >
                     </img>
+
                     <div className = "settingButtons">
                         <div className="hideme">
-                            <button className = "Button tipsButton ButtonC">
+                            <button className = "Button tipsButton ButtonD" onClick = {this.deleteData}>
                                 DELETE DATA
                             </button>
+                            {this.makeSettingButton("C", "CARD COLOURS", this.cardColoursContent())}
                             {this.makeSettingButton("B", "CUSTOM COLOURS", this.customColoursContent())}
                             {this.makeSettingButton("A", "PREMADE THEMES", this.themesContent())}
                         </div>
@@ -317,7 +342,7 @@ class App extends Component {
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         var card = document.getElementById(data);
-        if(!this.isValidMove(ev, card)) return;
+        if(!this.isValidMove(ev.target.id, card.id)) return;
         console.log(card);
         ev.target.appendChild(card);
         card.id = "card" + "_" + card.id.split("_")[1] + "_" + ev.target.id + "_" + card.id.split("_")[7];
@@ -336,18 +361,18 @@ class App extends Component {
         this.refreshPage();
     }
 
-    isValidMove = (ev, card) => {
+    isValidMove = (boxName, cardName) => {
         var pattern = /^box.+$/;
-        if(!pattern.test(ev.target.id)) return false;
-        if(!this.checkOntopOfExistingCard(ev, card, this.getAllCardsOnBoard())) return false;
-        if(Number(ev.target.id.split("_")[4]) + Number(card.id.split("_")[1]) > 24) return false;
+        if(!pattern.test(boxName)) return false;
+        if(!this.checkOntopOfExistingCard(boxName, cardName, this.getAllCardsOnBoard())) return false;
+        if(Number(boxName.split("_")[4]) + Number(cardName.split("_")[1]) > 24) return false;
         return true;
     }
     
-    checkOntopOfExistingCard = (ev, card, list) => {
+    checkOntopOfExistingCard = (boxName, cardName, list) => {
         const board = [[], [], [], [], [], [], []];
         for(var i = 0; i < list.length; i++){
-            if(card == list[i]) continue;
+            if(cardName == list[i].id) continue;
             var cardVals = list[i].id.split("_");
             var h = cardVals[1]; var y = cardVals[3]; var m = cardVals[4]; var d = cardVals[5]; var t = cardVals[6];
             var date = new Date((y + '-' + m + '-' + d).replace(/-/g, "/"));
@@ -357,11 +382,11 @@ class App extends Component {
             }
         }
 
-        var divVals = ev.target.id.split("_");
+        var divVals = boxName.split("_");
         var div_year = divVals[1]; var div_month = divVals[2]; var div_day = divVals[3]; var div_time = divVals[4]; 
         var date = new Date((div_year + '-' + div_month + '-' + div_day).replace(/-/g, "/"));
         var curr_day = date.getDay();
-        var height = card.id.split("_")[1];
+        var height = cardName.split("_")[1];
         for(var i = 0; i < height; i++){
             if(board[curr_day][Number(div_time) + Number(i)] == 1){
                 return false;
@@ -425,7 +450,7 @@ class App extends Component {
         var msg = document.getElementById("addCard_message");
         var d = document.getElementById("addCard_day");
         if(time == null || height == null || msg == null || d == null){
-            alert("Error: NULL");
+            alert("ERROR : NULL");
             return;
         }
         
@@ -433,21 +458,28 @@ class App extends Component {
         height = Number(height.value);
         msg = msg.value;
         d = Number(d.value);
-        console.log(time + "A" + height + "A" + msg + "A" + d);
+
         if((time == "" && time != 0) || height == "" || msg == "" || d == ""){
-            alert("Please select all fields before adding a card.");
+            alert("ERROR : Please select all fields before adding a card.");
             return;
         }
         if(time + height > 24){
-            alert("The height of a card can't exceed (24 - Start Time).");
+            alert("ERROR : The height of a card can't exceed (24 - Start Time).");
             return;
         }
-
+        
         var id = 0;
         if(postData.length != 0) id = postData[postData.length - 1].id + 1;
         var y = this.state.year;
         var m = this.state.month;
         var w = this.state.week;
+        
+        var boxName = "box" + "_" + y + "_" + m + "_" + d + "_" + time;
+        var cardName =  "card" + "_" + height + "_" + "box" + "_" + y + "_" + m + "_" + d + "_" + time + "_" + id;
+        if(!this.isValidMove(boxName, cardName)){
+            alert("ERROR : The card being created overlaps with other card.");
+            return;
+        }
 
         var JSONObject = {
             "id": id,
@@ -529,12 +561,12 @@ class App extends Component {
         localStorage.setItem('backgroundColour', JSON.stringify(bgc));
     }
 
-    makeColourButton = (colour, text) => {
-        var string = "colourButton_" + colour;
+    makeColourButton = (colour, text, stringID) => {
+        var string = stringID + colour;
         return(
             <div className = "coloursWrapper">
-                <div className="coloursButtonWrapper" style={{backgroundColor: JSON.parse(localStorage.getItem(colour))}}>
-                    <input id={string} type="color" className = "coloursButton" onChange={this.changeColour} value={JSON.parse(localStorage.getItem(colour))}>
+                <div className="coloursButtonWrapper" style={{backgroundColor: colour}}>
+                    <input id={string} type="color" className = "coloursButton" onChange={this.changeColour} value={colour}>
                     </input>
                 </div>
                 <p className="coloursText">
@@ -555,12 +587,12 @@ class App extends Component {
     customColoursContent = () => {
         return(
             <div>
-                {this.makeColourButton('mainColour', "MAIN")}                                                
-                {this.makeColourButton('darkMainColour', "DARK MAIN")}                                                
-                {this.makeColourButton('backgroundColour', "BACK- GROUND")}                                                
-                {this.makeColourButton('lightBox', "LIGHT BOX")}
-                {this.makeColourButton('normalBox', "NORMAL BOX")}                                                
-                {this.makeColourButton('darkBox', "DARK BOX")}                                                
+                {this.makeColourButton(JSON.parse(localStorage.getItem('mainColour')), "MAIN", "colourButton_")}                                                
+                {this.makeColourButton(JSON.parse(localStorage.getItem('darkMainColour')), "DARK MAIN", "colourButton_")}                                                
+                {this.makeColourButton(JSON.parse(localStorage.getItem('backgroundColour')), "BACK- GROUND", "colourButton_")}                                                
+                {this.makeColourButton(JSON.parse(localStorage.getItem('lightBox')), "LIGHT BOX", "colourButton_")}
+                {this.makeColourButton(JSON.parse(localStorage.getItem('normalBox')), "NORMAL BOX", "colourButton_")}                                                
+                {this.makeColourButton(JSON.parse(localStorage.getItem('darkBox')), "DARK BOX", "colourButton_")}                                                
             </div>
         )        
     }
@@ -611,6 +643,38 @@ class App extends Component {
                 </button>
             </div>
         )
+    }
+    cardColoursContent = () => {
+        var content = [];
+        var list = JSON.parse(localStorage.getItem('colours'));
+        for(var i = 0; i < list.length; i++){
+            console.log(list[i].colour);
+            content.push(this.makeColourButton(list[i].colour, list[i].name, 'cardColourButton_'));
+        }
+        return(
+            <div>
+                {this.addCardColourButton()}                                     
+                {content}  
+            </div>
+        )            
+    }
+
+    addCardColourButton = () => {
+        return(
+            <div className = "coloursWrapper">
+                <button className="addCardColourButton">
+                    ADD COLOUR
+                </button>
+                <input className="addCardColourInput" placeholder="Name"></input>
+            </div>
+        )
+    }
+
+    deleteData = () => {
+        if(window.confirm("Are you sure you want to delete all local data?")){
+            localStorage.clear();
+            this.refreshPage();
+        }
     }
 }
 

@@ -3,6 +3,7 @@
     --A: 60px;
     --B: 120px;
     --C: 180px;
+    --D: 240px;
     --animationTime: 0.7s;
     --lightBox: #f7f7f7;
     --normalBox: #ededed;
@@ -23,7 +24,10 @@
   background-color: var(--mainColour);
   outline: 1px solid var(--mainColour);
 }
-
+.boldText{
+    font-weight: bold;
+    letter-spacing: 1px;
+}
 .break{
     height: 10px;
 }
@@ -82,6 +86,7 @@
     width: 44px;
     border: 3px solid var(--mainColour);
     border-radius: 3px;
+    font-size: 50%;
     text-align: center;
     font-weight: bold;
     letter-spacing: 1px;    
@@ -106,9 +111,13 @@
     float: left;
 }
 .addCardButton{
+    margin-top: 2px;
     width: 96px;
     height: 30px;
     border-radius: 5px;
+    font-size: 60%;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .incButton{
@@ -218,7 +227,7 @@
     background-color: var(--normalBox);
     border: 2px solid var(--backgroundColour);
     border-radius: 3px;
-    height: 200px;
+    height: 210px;
     width: 120px;
     top:0;
     right:0; 
@@ -228,12 +237,22 @@
 }
 
 .input{
+    margin-top: 2px;
     width: 100px;
     height: 30px;
     padding: 4px 8px;
     border-radius: 5px;
-    font-size: 75%;
-    border: 2px solid var(--normalBox);
+    font-size: 60%;
+    text-align: center;
+    font-weight: bold;
+    color: var(--darkMainColour);
+    background-color: var(--normalBox);
+    border: 1px solid var(--mainColour);
+}
+
+
+::placeholder {
+    color: var(--darkMainColour);
 }
 
 .inputText{
@@ -252,7 +271,7 @@
 }
 
 .settingButtons:hover{
-    height: 180px;
+    height: 240px;
     width: 60px;
 }
 
@@ -324,9 +343,44 @@
     margin-left: 10px;
 }
 
+.addCardColourButton{
+    height: 38px;
+    width: 50px;
+    background-color: var(--mainColour);
+    color: var(--backgroundColour);
+    border-radius: 3px;
+    border: none;
+    font-size: 50%;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;      
+}
+.addCardColourInput{
+    height: 10px;
+    width: 40px;
+    background-color: var(--normalBox);
+    border: 1px solid var(--mainColour);
+    border-radius: 3px;
+    display: block;
+    margin : 0 auto;
+    margin-top: 3px;
+    color: var(--darkMainColour);
+    font-size: 60%;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 1px;  
+}
+
+.addCardColourButton:hover{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-color: var(--darkMainColour);
+}
+
 .settingDiv{
     margin-left: 50px;
+    border-bottom: 30px solid rgba(255, 255, 255, 0);
     border-left: 10px solid rgba(255, 255, 255, 0);
+    border-right: 10px solid rgba(255, 255, 255, 0);
     background-clip: padding-box;
     animation: animationDropdown 0.4s;
     animation-timing-function: ease-in;
@@ -350,6 +404,11 @@
     animation-timing-function: ease;
 }
 
+.settingButtons .ButtonD{ 
+    margin-top: var(--D);
+    animation: animationD var(--animationTime);
+    animation-timing-function: ease;
+}
 @keyframes back{
     to{top:0px;}
 }
@@ -363,6 +422,10 @@
 }
 @keyframes animationC {
     from {top: -180px;}
+    to {top: 0px;}
+}
+@keyframes animationD {
+    from {top: -240px;}
     to {top: 0px;}
 }
 @keyframes animationDropdown{
