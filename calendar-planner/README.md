@@ -2,7 +2,7 @@
 ## Calendar Planner
 
 This solo project was created with ReactJS.
-
+https://jrdnvan.github.io/Calendar-Planner/
 ### Description
 
 * Single page web application aiding users to plan days in segments of weeks.
